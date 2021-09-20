@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A2Z</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/admin.css">
+
+</head>
+
+<body>
+  <div class="main-container"
+    style="z-index:1;background-color:rgb(125, 130, 196);margin-bottom: 3rem;height: 1.3cm;padding-top: 0.2cm;">
+    <section class="top-bar">
+      <a href="/" class="home-link">AZ TECH</a>
+      <a href="{{ url_for('articles') }}"class="post-link">ARTICLES & PROJECTS</a>
+      <a href="{{ url_for('categories') }}" class="cat-link">CATEGORIES</a>
+      <a href="/about" class="about-link">ABOUT ME</a>
+      <input type="text" id="search" style="border-radius:0.5rem; margin-left: 5rem;">
+      <a href="javascript:;" onclick="this.href= document.getElementById('search').value"><img
+          src="/static/images/searchicon.png" alt="SEARCH" style="height: 20px;width: 20px;"></a>
+    </section>
+  </div>
+  {% block content %}
+  {% endblock %}
+  <footer >
+    <div class="aboutme">
+      <img src="/static/images/profimg.jpeg" alt="profile-image" class="profimg">
+      <div class="thought">
+        <p style="font-family: 'Montserrat', sans-serif;font-size: 15px;font-weight: bold;">
+          B.Tech Electronics and Telecommunication Engineer with 7 years experience in IT and telecom <br>Trying to Digest the Thought- AGE IS JUST A NUMBER</p>
+        <p><a href="https://aztech.quora.com"><img src="/static/images/quora.png"
+              style="margin-left: 10rem;height:20px;width:20px;"></a><span></span></p>
+      </div>
+      <p style="margin-left:2rem;display:block;font-family:'Montserrat', sans-serif; color: rgb(97, 56, 211);font-weight: bold;">
+        Telecom and Software Engineer</p>
+    </div>
+  </footer>
+</body>
+
+</html>

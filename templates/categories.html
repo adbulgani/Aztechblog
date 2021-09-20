@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for post_category in post_categories %}
+        <h3>{{ post_category[0] }}</h3>
+        <img src="static/posts/{{ post_category[1] }}" height="200px" width="200px">
+    {% endfor %}
+{% endblock %}

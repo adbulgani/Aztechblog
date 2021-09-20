@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdn.tiny.cloud/1/0z1klgeou1hj6okbuapxafh7z6ub9jn6fbzi84kuguul2mhg/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<form id="postform" action="{{ url_for('post') }}" method="POST" class="formcontent" enctype="multipart/form-data">
+    <label>POST TITLE</label><br>
+    <input type="text" name="TITLE" placeholder="TITLE"><br>
+    <label>CATEGORY</label>
+    <select name="categories" id="post_type">
+      <option value="IoT">IoT</option>
+      <option value="Software">Saab</option>
+      <option value="General">General</option>
+      <option value="others">Others</option>
+    </select><br>
+    <label>COVER IMAGE</label>
+    <input type="file" name='cover_image'><br>
+    <label>POST CONTENT</label>
+    <div id="cont" ></div>
+    <textarea id ="content" name="content" type="hidden"></textarea><br>
+    <button type="submit">SAVE</button>
+</form>
+  <script type="text/javascript" src="/static/js/dyn.js"></script>
+
+{% endblock %}

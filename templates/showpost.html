@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="show_post">
+    <span>
+      <h2>{{ display_post['post_title'] | safe }} </h2>
+      <h6>{{ display_post['date_posted'] | safe}}</h6>
+    </span>
+    <div class="show_content">
+      <p>{{ display_post['post_content'] | safe}} </p>
+    </div>
+  </div>
+{% endblock %}
