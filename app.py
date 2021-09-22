@@ -78,21 +78,21 @@ def About():
 
 @app.route("/categories")
 def categories():
-    dandha=Post.query.all()
-    i = len(dandha)
+    posts=Post.query.all()
+    i = len(posts)
     gen=[]
     iot=[]
     soft=[]
     life=[]
-    for dandha in dandha:
-        if dandha.post_category == 'General':
-            gen.append(dandha)
-        elif dandha.post_category == 'IoT':
-            iot.append(dandha)
-        elif dandha.post_category == 'Software':
-            soft.append(dandha)
+    for post in posts:
+        if post.post_category == 'General':
+            gen.append(post)
+        elif post.post_category == 'IoT':
+            iot.append(post)
+        elif post.post_category == 'Software':
+            soft.append(post)
         else:
-            life.append(dandha)    
+            life.append(post)    
     return render_template('categories.html',gen=gen,iot=iot,soft=soft,life=life)
 
 @app.route("/articles")
@@ -100,10 +100,17 @@ def articles():
     display_post = Post.query.order_by(desc(Post.post_id)).all()
     return render_template('article.html',display_post=display_post)
 
-@app.route("/<id>")
+@app.route("/<int:id>")
 def showpost(id):
     display_post = Post.query.get(id)
     return render_template('showpost.html',display_post=display_post)
+
+@app.route("/articles/<string:cat>")
+def showcategory(cat):
+    cat=bleach.clean(cat)
+    display_post = Post.query.filter_by(post_category=cat).all()
+    print(display_post)
+    return render_template('showcategoryposts.html',display_post=display_post,cat=cat)
 
 
 @app.route("/",methods=["POST","GET"])

@@ -6,7 +6,7 @@ body{
 }
 a:link{
     text-decoration: none!important;
-  }
+}
 .home-link{
     color: #f0f2f7;
     margin-left: 10rem;
@@ -101,6 +101,9 @@ a:link{
 
 .show_post{
     font-family: 'Montserrat', sans-serif;
+    text-align: justify;
+    margin-left: 40%;
+    margin-right: 20%;
 }
 .show_content img{
     width: 500px;
@@ -110,4 +113,7 @@ a:link{
     margin-top: 1.2cm;
     font-family: 'Montserrat', sans-serif;
     background-color: rgb(101, 231, 220);
+}
+.sh_post{
+    margin-left: 20%;
 }
