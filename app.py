@@ -78,8 +78,22 @@ def About():
 
 @app.route("/categories")
 def categories():
-    post_categories=Post.query.with_entities(Post.post_category,Post.cover_image).distinct().all()
-    return render_template('categories.html',post_categories=post_categories)
+    dandha=Post.query.all()
+    i = len(dandha)
+    gen=[]
+    iot=[]
+    soft=[]
+    life=[]
+    for dandha in dandha:
+        if dandha.post_category == 'General':
+            gen.append(dandha)
+        elif dandha.post_category == 'IoT':
+            iot.append(dandha)
+        elif dandha.post_category == 'Software':
+            soft.append(dandha)
+        else:
+            life.append(dandha)    
+    return render_template('categories.html',gen=gen,iot=iot,soft=soft,life=life)
 
 @app.route("/articles")
 def articles():
