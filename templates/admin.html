@@ -1,24 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<script src="https://cdn.tiny.cloud/1/0z1klgeou1hj6okbuapxafh7z6ub9jn6fbzi84kuguul2mhg/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<form id="postform" action="{{ url_for('post') }}" method="POST" class="formcontent" enctype="multipart/form-data">
-    <label>POST TITLE</label><br>
-    <input type="text" name="TITLE" placeholder="TITLE"><br>
-    <label>CATEGORY</label>
-    <select name="categories" id="post_type">
-      <option value="IoT">IoT</option>
-      <option value="Software">Software</option>
-      <option value="General">General</option>
-      <option value="others">Life</option>
-    </select><br>
-    <label>COVER IMAGE</label>
-    <input type="file" name='cover_image'><br>
-    <label>POST CONTENT</label>
-    <div id="cont" ></div>
-    <textarea id ="content" name="content" type="hidden"></textarea><br>
-    <button type="submit">SAVE</button>
-</form>
-  <script type="text/javascript" src="/static/js/dyn.js"></script>
+<script src="https://cdn.tiny.cloud/1/0z1klgeou1hj6okbuapxafh7z6ub9jn6fbzi84kuguul2mhg/tinymce/5/tinymce.min.js"
+  referrerpolicy="origin"></script>
+<div class="row">
+  <div class="col-lg-8">
+    <div class="form-group">
+      <form id="postform" action="{{ url_for('post') }}" method="POST" class="formcontent"
+        enctype="multipart/form-data">
+        <label class="control-label">POST TITLE</label><br>
+        <input type="text" name="TITLE" class="form-control" placeholder="TITLE"><br>
+        <label class="control-label">CATEGORY</label>
+        <select name="categories" id="post_type" class="form-control">
+          <option value="IoT">IoT</option>
+          <option value="Software">Software</option>
+          <option value="General">General</option>
+          <option value="others">Life</option>
+        </select><br>
+        <label class="control-label">COVER IMAGE</label>
+        <input type="file" name='cover_image' class="form-control"><br>
+        <label class="control-label">POST CONTENT</label>
+        <div id="cont"></div>
+        <textarea id="content" name="content" type="hidden" class="form-control"></textarea><br>
+        <button type="submit">SAVE</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      {% for p in posts %}
+      <form class="form-inline">
+        {{ p['post_title'] }} --> <input type="submit" value="DELETE" class="btn btn-info mb-4 form-control"
+          formaction="/delete/{{p.post_id)}}"> <input type="submit" value="UPDATE"
+          class="btn btn-info form-control" formaction="/update/{{p.post_id}}">
+      </form>
+      <br>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/static/js/dyn.js"></script>
 
 {% endblock %}

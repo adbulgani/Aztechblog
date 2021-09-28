@@ -74,12 +74,6 @@ a:link{
     width: 250px;
     height: 150px;
 }
-.post2{
-    margin-left: 3rem;
-    padding: 1rem;
-    width: 250px;
-    height: 150px;
-}
 .aboutme{
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -102,8 +96,6 @@ a:link{
 .show_post{
     font-family: 'Montserrat', sans-serif;
     text-align: justify;
-    margin-left: 40%;
-    margin-right: 20%;
 }
 .show_content img{
     width: 500px;
@@ -113,7 +105,9 @@ a:link{
     margin-top: 1.2cm;
     font-family: 'Montserrat', sans-serif;
     background-color: rgb(101, 231, 220);
+    display: inline-block;
 }
-.sh_post{
-    margin-left: 20%;
+.commentform{
+    border-style: solid;
+    border:thick;
 }

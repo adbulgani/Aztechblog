@@ -3,13 +3,13 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <h3 style="text-align: center;">Software</h3>
+            <h3 style="text-align: center;font-style:italic;font-family: 'Montserrat', sans-serif;">Software</h3>
             <div id="softCarousel" class="carousel slide" data-ride="carousel" style="height: 300px; width: 500px;">
                 <div class="carousel-inner">
                     {% for p in soft %}
                     {% if p['post_category'] == 'Software' %}
                     <div class="item {% if loop.index == 1 %} active {% endif %}">
-                        <a href="/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="IoT"></a>
+                        <a href="/articles/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="IoT"></a>
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -26,13 +26,13 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <h3 style="text-align: center;">IoT</h3>
+            <h3 style="text-align: center;font-family: 'Montserrat', sans-serif;">IoT</h3>
             <div id="ICarousel" class="carousel slide" data-ride="carousel" style="height: 300px; width: 500px;">
                 <div class="carousel-inner">
                     {% for p in iot %}
                     {% if p['post_category'] == 'IoT' %}
                     <div class="item {% if loop.index == 1 %} active {% endif %}">
-                        <a href="/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="IoT"></a>
+                        <a href="/articles/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="IoT"></a>
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -51,13 +51,13 @@
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <h3 style="text-align: center;">General</h3>
+            <h3 style="text-align: center;font-family: 'Montserrat', sans-serif;">General</h3>
             <div id="gCarousel" class="carousel slide" data-ride="carousel" style="height: 300px; width: 500px;">
                 <div class="carousel-inner">
                     {% for p in gen %}
                     {% if p['post_category'] == 'General' %}
                     <div class="item {% if loop.index == 1 %} active {% endif %}">
-                        <a href="/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="General"></a>
+                        <a href="/articles/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="General"></a>
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -74,13 +74,13 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <h3 style="text-align: center;">Life</h3>
+            <h3 style="text-align: center;font-family: 'Montserrat', sans-serif;">Life</h3>
             <div id="lCarousel" class="carousel slide" data-ride="carousel" style="height: 300px; width: 500px;">
                 <div class="carousel-inner">
                     {% for p in life %}
                     {% if p['post_category'] == 'Life' %}
                     <div class="item {% if loop.index == 1 %} active {% endif %}">
-                        <a href="/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="Life"></a>
+                        <a href="/articles/{{p['post_id']}}"><img src="/static/posts/{{ p['cover_image']}}" alt="Life"></a>
                     </div>
                     {% endif %}
                     {% endfor %}

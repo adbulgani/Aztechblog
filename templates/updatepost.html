@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdn.tiny.cloud/1/0z1klgeou1hj6okbuapxafh7z6ub9jn6fbzi84kuguul2mhg/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <form id="postform" action="{{ url_for('updatepostdetails') }}" method="POST" class="formcontent"
+            enctype="multipart/form-data">
+            <input type="hidden" name="postid" value="{{ post['post_id'] }}">
+            <label>POST TITLE</label><br>
+            <input type="text" name="TITLE" placeholder="TITLE" value="{{ post['post_title'] }}"><br>
+            <label>CATEGORY</label><br>
+            <select name="categories" id="post_type">
+                <option value="{{ post['post_category'] }}">{{  post['post_category'] }}</option>
+            </select><br>
+            <img src="/static/posts/{{post['cover_image']}}"><br>
+            <label>POST CONTENT</label>
+            <div id="cont"></div>
+            <textarea id="content" name="content" ></textarea><br>
+            <button type="submit">UPDATE</button>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/dyn.js"></script>
+<script>
+    document.getElementById("content").value="{{ post['post_content'] | safe }}";
+</script>
+{% endblock %}

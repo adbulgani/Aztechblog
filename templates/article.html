@@ -2,28 +2,59 @@
 
 {% block content %}
 <div class="container">
+  {% for post in display_post.items %}
   <div class="row">
-    <div class="col-sm-10">
-      {% for post in display_post %}
-      <div class="sh_post">
-        <span>
-          <a href="/{{post['post_id']}}"><h2>{{ post['post_title'] | safe }} </h2></a>
-          <h6>{{ post['date_posted'] | safe}}</h6>
-        </span>
-        <div class="show_content">
-          <p>{{ post['post_content'] | safe}} </p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="col-sm-2 categories">
-      <span class="border border-primary">
-        <h4><a href="/articles/IoT">IoT</a></h4>
-        <h4><a href="/articles/Software">Sofware</a></h4>
-        <h4><a href="/articles/General">General</a></h4>
-        <h4><a href="/articles/Life">Life</a></h4>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-6">
+    <div class="sh_post">
+      <span>
+        <a href="/articles/{{post['post_id']}}">
+          <h2>{{ post['post_title'] | safe }} </h2>
+        </a>
+        <h6>{{ post['date_posted'] | safe}}</h6>
       </span>
+      <div class="show_content">
+        <article>
+          <p class="lead">{{ post['post_content'] | safe}} </p>
+        </article>
+      </div>
+    </div>
+    {% for com in display_comment %}
+    {% if post.post_id == com.comment_post_id %}
+    <div class="show_comments">
+      <span>commented on {{ com['date_commented'] }}</span>
+      <article>
+        <p>{{ com['comment'] | safe}} </p>
+      </article>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <form class="commentform" id="commentform" action="{{ url_for('addcomment') }}" method="POST">
+      <input type="hidden" name='postkey' value="{{post['post_id']}}">
+      <span>
+        <label style="font-style: italic;">thoko</label>
+        <input type="checkbox" name="taali">
+      </span>
+      <textarea rows="1" cols="50" name="comment" id="comment" style="display: block;" required></textarea>
+      <span>
+        <input type="submit" class="btn btn-info" name="ADD COMMENT" value="ADD COMMENT" style="display: inline-block;">
+      </span>
+    </form>
+    {% endfor %}
+    </div>
+    <div class="col-lg-4">
     </div>
   </div>
 </div>
+{% for page_num in display_post.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+{% if page_num %}
+{% if display_post.page == page_num %}
+<a class="btn btn-info mb-4" href="{{ url_for('articles',page=page_num) }}">{{ page_num }}</a>
+{% else %}
+<a class="btn btn-outline-info mb-4" href="{{ url_for('articles',page=page_num) }}">{{ page_num }}</a>
+{% endif %}
+{% else %}
+...
+{% endif %}
+{% endfor %}
 {% endblock %}

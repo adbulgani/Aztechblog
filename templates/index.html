@@ -7,7 +7,7 @@
     <div class="carousel-inner">
       {% for post in display_post %}
       <div class="item {% if loop.index == 1 %} active {% endif %}">
-        <img src="/static/posts/{{ post['cover_image']}}" alt="IoT">
+        <a href="/articles/{{post['post_id']}}"><img src="/static/posts/{{ post['cover_image']}}" alt="IoT"></a>
         <div class="carousel-caption">
           <h5>{{post['post_title']}}</h5>
         </div>
@@ -27,8 +27,9 @@
   <div class="midright">
     <div class="recent-posts">
       <h3 style="font-family:'Montserrat', sans-serif; color: rgb(97, 56, 211);font-weight: bold;">RECENT POSTS</h3>
-      <a href="/{{display_post[0]['post_id']}}"><img src="/static/posts/{{display_post[0]['cover_image']}}" class="post1"></a>
-      <a href="/{{display_post[1]['post_id']}}"><img src="/static/posts/{{display_post[1]['cover_image']}}" class="post2"></a>
+      {% for post in top_post%}
+      <a href="/articles/{{post['post_id']}}"><img src="/static/posts/{{post['cover_image']}}" class="post1"></a>
+      {% endfor %}
     </div>
   </div>
 </div>

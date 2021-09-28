@@ -1,5 +1,8 @@
+from operator import pos
+from flask.scaffold import _matching_loader_thinks_module_is_package
 import pymysql
-from werkzeug.utils import secure_filename
+from sqlalchemy.sql.expression import null
+from werkzeug.utils import redirect, secure_filename
 from datetime import datetime
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
@@ -52,6 +55,12 @@ class Comment(db.Model):
     comment_post_id = db.Column(db.Integer,db.ForeignKey('post.post_id'),nullable=False)
     replies = db.relationship('Reply',backref='replies',lazy=True)
 
+    def __init__(self,comment,date_commented,comment_post_id,like):
+        self.comment=comment
+        self.date_commented=date_commented
+        self.comment_post_id=comment_post_id
+        self.like=like
+
     def __repr__(self):
         return f"Comment('{self.comment_id}', '{self.comment_post_id}', '{self.date_commented}')"
 
@@ -66,11 +75,13 @@ class Reply(db.Model):
 
 @app.route("/gani")
 def admin():
-    return render_template('admin.html')
+    posts = Post.query.all()
+    return render_template('admin.html',posts=posts)
 
 @app.route("/")
 def Home():
-    return render_template('index.html',display_post=Post.query.all())
+    top_post=Post.query.order_by(desc(Post.date_posted)).limit(2)
+    return render_template('index.html',display_post=Post.query.all(),top_post=top_post)
 
 @app.route("/about")
 def About():
@@ -97,13 +108,16 @@ def categories():
 
 @app.route("/articles")
 def articles():
-    display_post = Post.query.order_by(desc(Post.post_id)).all()
-    return render_template('article.html',display_post=display_post)
+    page=request.args.get('page',1,type=int)
+    display_post = Post.query.order_by(desc(Post.date_posted)).paginate(page=page,per_page=4)
+    display_comment=Comment.query.all()
+    return render_template('article.html',display_post=display_post,display_comment=display_comment)
 
-@app.route("/<int:id>")
+@app.route("/articles/<int:id>")
 def showpost(id):
     display_post = Post.query.get(id)
-    return render_template('showpost.html',display_post=display_post)
+    display_comment=Comment.query.filter_by(comment_post_id=id).all()
+    return render_template('showpost.html',display_post=display_post,display_comment=display_comment)
 
 @app.route("/articles/<string:cat>")
 def showcategory(cat):
@@ -112,6 +126,22 @@ def showcategory(cat):
     print(display_post)
     return render_template('showcategoryposts.html',display_post=display_post,cat=cat)
 
+@app.route('/',methods=["POST","GET"])
+def addcomment():
+    if request.method == "POST":
+        postkey=request.form.get('postkey')
+        comment_text=request.form.get('comment')
+        print(comment_text)
+       # comment=bleach.clean(comment)
+        comment_data=Comment(comment_text,datetime.now(),postkey,True)
+        db.session.add(comment_data)
+        db.session.commit()
+        page=request.args.get('page',1,type=int)
+        display_post = Post.query.order_by(desc(Post.post_id)).paginate(page=page,per_page=4)
+        display_comment=Comment.query.all()
+        return render_template('article.html',display_post=display_post,display_comment=display_comment)
+    else:
+        return render_template('article.html')
 
 @app.route("/",methods=["POST","GET"])
 def post():
@@ -129,5 +159,56 @@ def post():
         db.session.commit()
         display_post = Post.query.order_by(desc(Post.date_posted)).all()
         return render_template('article.html',display_post=display_post)
+
+@app.route("/delete/<int:id>")
+def deletepost(id):
+    dp = Post.query.filter_by(post_id=id).all()
+    ct = Comment.query.filter_by(comment_post_id=id).all()
+    print(ct)
+    rp = []
+    for com in ct:
+        r = Reply.query.filter_by(reply_id=com.comment_id).all().count(Reply.reply_id)
+        if r != 0:
+            re = Reply.query.filter_by(reply_id=com.comment_id).all()
+            rp .append(re)
+    print(len(rp))
+    if rp != None:
+        for r in rp:
+            db.session.delete(r)
+    if ct != None:
+        for com in ct:
+            db.session.delete(com)
+    if dp != None:
+        for d in dp:
+            db.session.delete(d)
+    db.session.commit()
+    posts=Post.query.all()  
+    return render_template('admin.html',posts=posts)
+
+@app.route("/update/<int:id>")
+def updatepost(id):
+    post = Post.query.get(id)
+    return render_template('updatepost.html',post=post)
+
+@app.route("/update",methods=["POST"])
+def updatepostdetails():
+    if request.method == "POST":
+        title = request.form.get("TITLE")
+        content = request.form.get('content')
+        content = bleach.clean(content,tags=['img','p','h1','h2','h3','a'],attributes={'img':['src']},protocols=['data']
+        )
+        category = request.form.get('categories')
+        postid = request.form.get("postid")
+        post = Post.query.get(postid)
+        post.post_title = title
+        post.post_content = content
+        post.post_category = category
+        post.date_posted = datetime.now()
+        db.session.commit()
+        page=request.args.get('page',1,type=int)
+        display_post = Post.query.order_by(desc(Post.date_posted)).paginate(page=page,per_page=4)
+        display_comment=Comment.query.all()
+        return render_template('article.html',display_post=display_post,display_comment=display_comment)
+
 if __name__ == '__main__':
     app.run(debug=True)
