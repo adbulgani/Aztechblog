@@ -1,60 +1,58 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="media">
   {% for post in display_post.items %}
-  <div class="row">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-6">
-    <div class="sh_post">
-      <span>
-        <a href="/articles/{{post['post_id']}}">
-          <h2>{{ post['post_title'] | safe }} </h2>
-        </a>
-        <h6>{{ post['date_posted'] | safe}}</h6>
-      </span>
-      <div class="show_content">
-        <article>
-          <p class="lead">{{ post['post_content'] | safe}} </p>
-        </article>
-      </div>
+  <article class="media content-section">
+    <div class="media-group sh_post" style="border-bottom: 1px solid grey;">
+      <a href="/articles/{{post['post_id']}}">
+        <span class="h2">{{ post['post_title'] | safe }}<span>
+      </a>
+      <span class="text-muted" style="float: right;">{{ post['date_posted'] | safe}}</span>
     </div>
-    {% for com in display_comment %}
-    {% if post.post_id == com.comment_post_id %}
-    <div class="show_comments">
-      <span>commented on {{ com['date_commented'] }}</span>
+    <!--<div style="width: max-content;">
+      <img src="/static/posts/{{ post['cover_image']}}">
+    </div>-->
+    <div class="media-group show_content">
+      <article>
+        <p class="lead">{{ post['post_content'] | safe}}</p>
+      </article>
+    </div>
+  </article>
+  {% for com in display_comment %}
+  {% if post.post_id == com.comment_post_id %}
+  <article class="media content-section">
+    <div>
+      <span style="border-bottom: 1px solid grey;">commented on {{ com['date_commented'] }}</span>
       <article>
         <p>{{ com['comment'] | safe}} </p>
       </article>
     </div>
-    {% endif %}
-    {% endfor %}
-    <form class="commentform" id="commentform" action="{{ url_for('addcomment') }}" method="POST">
+  </article>
+  {% endif %}
+  {% endfor %}
+  <div>
+    <form class="form-group" id="commentform" action="{{ url_for('addcomment') }}" method="POST"
+      style="margin-left: 20%;margin-right: 20%;">
       <input type="hidden" name='postkey' value="{{post['post_id']}}">
-      <span>
-        <label style="font-style: italic;">thoko</label>
-        <input type="checkbox" name="taali">
-      </span>
-      <textarea rows="1" cols="50" name="comment" id="comment" style="display: block;" required></textarea>
-      <span>
-        <input type="submit" class="btn btn-info" name="ADD COMMENT" value="ADD COMMENT" style="display: inline-block;">
-      </span>
+      <label class="control-label">COMMENT</label>
+      <textarea class="form-control" name="comment" id="comment" required></textarea><br>
+      <input type="submit" class="btn btn-info" name="ADD COMMENT" value="ADD COMMENT">
     </form>
-    {% endfor %}
-    </div>
-    <div class="col-lg-4">
-    </div>
   </div>
+  {% endfor %}
 </div>
-{% for page_num in display_post.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
-{% if page_num %}
-{% if display_post.page == page_num %}
-<a class="btn btn-info mb-4" href="{{ url_for('articles',page=page_num) }}">{{ page_num }}</a>
-{% else %}
-<a class="btn btn-outline-info mb-4" href="{{ url_for('articles',page=page_num) }}">{{ page_num }}</a>
-{% endif %}
-{% else %}
-...
-{% endif %}
-{% endfor %}
+<div>
+  {% for page_num in display_post.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+  {% if page_num %}
+  {% if display_post.page == page_num %}
+  <a class="btn btn-info mb-4" href="{{ url_for('articles',page=page_num) }}">{{ page_num }}</a>
+  {% else %}
+  <a class="btn btn-outline-info mb-4" href="{{ url_for('articles',page=page_num) }}">{{ page_num }}</a>
+  {% endif %}
+  {% else %}
+  ...
+  {% endif %}
+  {% endfor %}
+</div>
 {% endblock %}

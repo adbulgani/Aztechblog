@@ -131,8 +131,7 @@ def addcomment():
     if request.method == "POST":
         postkey=request.form.get('postkey')
         comment_text=request.form.get('comment')
-        print(comment_text)
-       # comment=bleach.clean(comment)
+        comment_text=bleach.clean(comment_text)
         comment_data=Comment(comment_text,datetime.now(),postkey,True)
         db.session.add(comment_data)
         db.session.commit()
@@ -143,7 +142,7 @@ def addcomment():
     else:
         return render_template('article.html')
 
-@app.route("/",methods=["POST","GET"])
+@app.route("/post",methods=["POST","GET"])
 def post():
     if request.method == "POST":
         title = request.form.get("TITLE")
@@ -157,7 +156,8 @@ def post():
         post_data = Post(title, content, category, datetime.now(), url)
         db.session.add(post_data)
         db.session.commit()
-        display_post = Post.query.order_by(desc(Post.date_posted)).all()
+        page=request.args.get('page',1,type=int)
+        display_post = Post.query.order_by(desc(Post.post_id)).paginate(page=page,per_page=4)
         return render_template('article.html',display_post=display_post)
 
 @app.route("/delete/<int:id>")

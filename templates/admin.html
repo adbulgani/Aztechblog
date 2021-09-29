@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-lg-8">
     <div class="form-group">
-      <form id="postform" action="{{ url_for('post') }}" method="POST" class="formcontent"
+      <form id="postform" action="/post" method="POST" class="formcontent"
         enctype="multipart/form-data">
         <label class="control-label">POST TITLE</label><br>
         <input type="text" name="TITLE" class="form-control" placeholder="TITLE"><br>
@@ -15,7 +15,7 @@
           <option value="IoT">IoT</option>
           <option value="Software">Software</option>
           <option value="General">General</option>
-          <option value="others">Life</option>
+          <option value="Life">Life</option>
         </select><br>
         <label class="control-label">COVER IMAGE</label>
         <input type="file" name='cover_image' class="form-control"><br>
@@ -31,7 +31,7 @@
       {% for p in posts %}
       <form class="form-inline">
         {{ p['post_title'] }} --> <input type="submit" value="DELETE" class="btn btn-info mb-4 form-control"
-          formaction="/delete/{{p.post_id)}}"> <input type="submit" value="UPDATE"
+          formaction="/delete/{{p.post_id}}"> <input type="submit" value="UPDATE"
           class="btn btn-info form-control" formaction="/update/{{p.post_id}}">
       </form>
       <br>
@@ -40,5 +40,4 @@
   </div>
 </div>
 <script type="text/javascript" src="/static/js/dyn.js"></script>
-
 {% endblock %}

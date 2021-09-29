@@ -3,17 +3,18 @@
 body{
     background-color: #f2f3f8;
     margin-bottom: 0rem;
+    font-family: 'Montserrat', sans-serif;
 }
 a:link{
     text-decoration: none!important;
 }
 .home-link{
     color: #f0f2f7;
-    margin-left: 10rem;
     margin-right: 5rem;
     font-family: 'Montserrat', sans-serif;
     font-weight: bolder;
     font-size: 20px;
+    margin-left: 2cm;
 }
 .post-link{
     color: #f0f2f7;;
@@ -45,28 +46,18 @@ a:link{
     justify-items: center;
     border-radius: 0.5rem;
     align-self: flex-start;
-    margin-left: 10rem;
-}
-.item img{
-    height :400px;
-    width: 560px;
 }
 .tagline{
     font-family: 'Cedarville Cursive', cursive;
     color: black; 
-    margin: 12rem;
     font-size: 25px;
-    margin-bottom: 3rem;
 }
-.midright{
-    margin-top: 2rem;
-}
+
 .recent-posts{
     background-color: rgb(144, 187, 169);
     border-radius: 0.5rem;
     padding: 3.5rem;
     height: 300px;
-
 }
 .post1{
     margin-left: 3rem;
@@ -74,7 +65,16 @@ a:link{
     width: 250px;
     height: 150px;
 }
-.aboutme{
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+/*.aboutme{
     display: grid;
     grid-template-columns: 1fr 3fr;
     margin-right: 0cm;
@@ -92,7 +92,7 @@ a:link{
     display: inline;
     padding-top: 0.5cm;
 }
-
+*/
 .show_post{
     font-family: 'Montserrat', sans-serif;
     text-align: justify;
@@ -106,8 +106,4 @@ a:link{
     font-family: 'Montserrat', sans-serif;
     background-color: rgb(101, 231, 220);
     display: inline-block;
-}
-.commentform{
-    border-style: solid;
-    border:thick;
 }

@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="show_post">
-  <span>
-    <h2>{{ display_post['post_title'] | safe }} </h2>
-    <h6>{{ display_post['date_posted'] | safe}}</h6>
-  </span>
+<article class="media content-section">
+  <div class="show_post" style="border-bottom: 1px solid grey;">
+    <span class="h2">
+      {{ display_post['post_title'] | safe }}
+    </span>
+    <span class="h6" style="float: right;">{{ display_post['date_posted'] | safe}}</span>
+  </div>
   <div class="show_content">
     <p>{{ display_post['post_content'] | safe}} </p>
   </div>
+</article>
+<article class="media content-section">
   {% for com in display_comment %}
   <div class="show_comments">
-    <span>commented on {{ com['date_commented'] }}</span>
+    <span style="border-bottom: 1px solid grey;">commented on {{ com['date_commented'] }}</span>
     <p>{{ com['comment'] | safe}} </p>
   </div>
   {% endfor %}
-</div>
+</article>
 {% endblock %}

@@ -16,11 +16,11 @@
 </head>
 
 <body>
-  <div class="main-container"
-    style="z-index:1;background-color:rgb(125, 130, 196);margin-bottom: 3rem;height: 1.3cm;padding-top: 0.2cm;">
+  <div class="container-fluid"
+    style="z-index:1;background-color:rgb(125, 130, 196);height: 1.3cm;padding-top: 0.2cm;">
     <section class="top-bar">
       <a href="/" class="home-link">AZ TECH</a>
-      <a href="{{ url_for('articles') }}"class="post-link">ARTICLES & PROJECTS</a>
+      <a href="{{ url_for('articles') }}" class="post-link">ARTICLES & PROJECTS</a>
       <a href="{{ url_for('categories') }}" class="cat-link">CATEGORIES</a>
       <a href="/about" class="about-link">ABOUT ME</a>
       <input type="text" id="search" style="border-radius:0.5rem; margin-left: 5rem;">
@@ -28,9 +28,11 @@
           src="/static/images/searchicon.png" alt="SEARCH" style="height: 20px;width: 20px;"></a>
     </section>
   </div>
-  {% block content %}
-  {% endblock %}
- <!-- <footer >
+  <div class="container" style="margin-top: 1cm;">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <!-- <footer >
     <div class="aboutme">
       <img src="/static/images/profimg.jpeg" alt="profile-image" class="profimg">
       <div class="thought">
@@ -44,5 +46,9 @@
     </div>
   </footer>
 -->
+<div class="container-fluid" style="background-color: lightgreen;">
+
+</div>
 </body>
+
 </html>
